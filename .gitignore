@@ -1,0 +1,14 @@
+.DS_Store
+
+# Neovim config has its own upstream repo (git-init-priyanshu/nvim-config).
+# Stow still symlinks it; we just don't track it here.
+nvim/
+
+# Karabiner auto-rotated backups
+karabiner/.config/karabiner/automatic_backups/
+
+# Raycast extension build artifacts and the symlink into Raycast.app
+raycast/.config/raycast/extensions/node_modules
+raycast/.config/raycast/extensions/**/node_modules
+raycast/.config/raycast/extensions/**/dist/
+raycast/.config/raycast/extensions/**/.parcel-cache/
