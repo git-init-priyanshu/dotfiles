@@ -1,5 +1,69 @@
+[env]
+TERM = "xterm-256color"
 
-[[keyboard.bindings]]
-key = "Return"
-mods = "Shift"
-chars = "\u001B\r"
+[cursor.style]
+shape = "Beam"
+
+[font]
+size = 14
+
+  [font.bold]
+  family = "JetBrainsMono Nerd Font"
+  style = "Bold"
+
+  [font.bold_italic]
+  family = "JetBrainsMono Nerd Font"
+  style = "BoldItalic"
+
+  [font.italic]
+  family = "JetBrainsMono Nerd Font"
+  style = "MediumItalic"
+
+  [font.normal]
+  family = "JetBrainsMono Nerd Font"
+  style = "Regular"
+
+[window]
+decorations = "Full"
+decorations_theme_variant = "Dark"
+startup_mode = "Maximized"
+dynamic_title = false
+opacity = 1
+
+  [window.padding]
+  x = 0
+  y = 0
+
+[colors]
+  [colors.primary]
+  background = "#272822"
+  foreground = "#f8f8f2"
+
+  [colors.cursor]
+  text = "#272822"
+  cursor = "#f8f8f2"
+
+  [colors.normal]
+  black = "#272822"
+  red = "#f92672"
+  green = "#a6e22e"
+  yellow = "#f4bf75"
+  blue = "#66d9ef"
+  magenta = "#ae81ff"
+  cyan = "#a1efe4"
+  white = "#f8f8f2"
+
+  [colors.bright]
+  black = "#75715e"
+  red = "#f92672"
+  green = "#a6e22e"
+  yellow = "#f4bf75"
+  blue = "#66d9ef"
+  magenta = "#ae81ff"
+  cyan = "#a1efe4"
+
+[keyboard]
+bindings = [
+  { key = "Back", mods = "Control", chars = "\u0017" },
+  { key = "Return", mods = "Shift", chars = "\u001B\r" },
+]
