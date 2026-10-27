@@ -45,26 +45,10 @@
                             },
                             {
                                 "from": {
-                                    "key_code": "v",
-                                    "modifiers": { "mandatory": ["command", "control", "option", "shift"] }
-                                },
-                                "to": [{ "shell_command": "open -a \"Cursor\"" }],
-                                "type": "basic"
-                            },
-                            {
-                                "from": {
                                     "key_code": "s",
                                     "modifiers": { "mandatory": ["command", "control", "option", "shift"] }
                                 },
                                 "to": [{ "shell_command": "open -a \"DBeaver\"" }],
-                                "type": "basic"
-                            },
-                            {
-                                "from": {
-                                    "key_code": "d",
-                                    "modifiers": { "mandatory": ["command", "control", "option", "shift"] }
-                                },
-                                "to": [{ "shell_command": "open -a \"Discord\"" }],
                                 "type": "basic"
                             },
                             {
@@ -88,7 +72,7 @@
                                     "key_code": "n",
                                     "modifiers": { "mandatory": ["command", "control", "option", "shift"] }
                                 },
-                                "to": [{ "shell_command": "open -a \"Notion\"" }],
+                                "to": [{ "shell_command": "open -a \"Notes\"" }],
                                 "type": "basic"
                             },
                             {
@@ -97,14 +81,6 @@
                                     "modifiers": { "mandatory": ["command", "control", "option", "shift"] }
                                 },
                                 "to": [{ "shell_command": "open -b net.whatsapp.WhatsApp" }],
-                                "type": "basic"
-                            },
-                            {
-                                "from": {
-                                    "key_code": "y",
-                                    "modifiers": { "mandatory": ["command", "control", "option", "shift"] }
-                                },
-                                "to": [{ "shell_command": "open -a \"YouTube Music\"" }],
                                 "type": "basic"
                             }
                         ]
@@ -386,6 +362,21 @@
                                 "type": "basic"
                             }
                         ]
+                    },
+                    {
+                        "description": "F13 -> Hyper+P (For custom screenshot shortcut)",
+                        "manipulators": [
+                            {
+                                "from": { "key_code": "f13" },
+                                "to": [
+                                    {
+                                        "key_code": "p",
+                                        "modifiers": ["command", "control", "option", "shift"]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
                     }
                 ]
             },
@@ -408,6 +399,48 @@
                         "is_keyboard": true,
                         "product_id": 42,
                         "vendor_id": 9610
+                    },
+                    "simple_modifications": [
+                        {
+                            "from": { "key_code": "f13" },
+                            "to": [{ "key_code": "right_command" }]
+                        },
+                        {
+                            "from": { "key_code": "left_command" },
+                            "to": [{ "key_code": "left_option" }]
+                        },
+                        {
+                            "from": { "key_code": "left_option" },
+                            "to": [{ "key_code": "left_command" }]
+                        }
+                    ]
+                },
+                {
+                    "identifiers": {
+                        "is_keyboard": true,
+                        "product_id": 268,
+                        "vendor_id": 9610
+                    },
+                    "simple_modifications": [
+                        {
+                            "from": { "key_code": "left_command" },
+                            "to": [{ "key_code": "left_option" }]
+                        },
+                        {
+                            "from": { "key_code": "left_option" },
+                            "to": [{ "key_code": "left_command" }]
+                        },
+                        {
+                            "from": { "key_code": "right_control" },
+                            "to": [{ "key_code": "right_option" }]
+                        }
+                    ]
+                },
+                {
+                    "identifiers": {
+                        "is_keyboard": true,
+                        "product_id": 64009,
+                        "vendor_id": 13652
                     },
                     "simple_modifications": [
                         {
