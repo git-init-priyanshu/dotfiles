@@ -250,3 +250,13 @@ export PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+
+# vapi
+export VAPI_INSTALL="$HOME/.vapi"
+export PATH="$VAPI_INSTALL/bin:$PATH"
+export MANPATH=""$HOME/.vapi"/share/man:$MANPATH"
+
+# Added by GitButler installer
+export PATH="$HOME/.local/bin:$PATH"
+eval "$(but completions zsh)"
+export PATH="$HOME/Library/TinyTeX/bin/universal-darwin:$PATH"
