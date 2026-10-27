@@ -44,7 +44,9 @@
     "tama_harrison",
     "pavelas",
     "mchoun",
-    "yoann_aubineau"
+    "yoann_aubineau",
+    "0xdhrv",
+    "Berenger"
   ],
   "pastContributors": [
     "pomdtr",
@@ -576,6 +578,27 @@
       "name": "get-spaces",
       "title": "Get Spaces",
       "description": "Gets the open spaces from the current window",
+      "output": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "isActive": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "id",
+            "isActive"
+          ]
+        }
+      },
       "confirmation": false
     },
     {
@@ -601,6 +624,46 @@
         },
         "required": []
       },
+      "output": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "location": {
+              "type": "string",
+              "enum": [
+                "topApp",
+                "pinned",
+                "unpinned"
+              ]
+            },
+            "spaceName": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "url",
+            "title",
+            "location"
+          ]
+        }
+      },
+      "confirmation": false
+    },
+    {
+      "name": "get-focused-tab",
+      "title": "Get Focused Tab",
+      "description": "Gets the active tab of the frontmost window, including the space it belongs to",
       "confirmation": false
     },
     {
@@ -661,6 +724,24 @@
       "name": "get-active-space",
       "title": "Get Active Space",
       "description": "Gets the currently active space in the current window",
+      "output": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "isActive": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "isActive"
+        ]
+      },
       "confirmation": false
     },
     {
@@ -681,11 +762,77 @@
         },
         "required": []
       },
+      "output": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number"
+            },
+            "url": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "lastVisitedAt": {
+              "type": "string"
+            },
+            "profileName": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "url",
+            "title",
+            "lastVisitedAt",
+            "profileName"
+          ]
+        }
+      },
       "confirmation": false
     }
   ],
+  "dependencies": {
+    "@raycast/api": "^2.7.1",
+    "@raycast/utils": "^2.3.2",
+    "cross-fetch": "^3.1.6",
+    "fuse.js": "^7.0.0",
+    "iconv-lite": "^0.6.3",
+    "is-url": "^1.2.4",
+    "lodash": "^4.17.23",
+    "nanoid": "^5.1.16",
+    "pinyin-pro": "^3.25.0",
+    "semver": "^7.3.8"
+  },
+  "devDependencies": {
+    "@raycast/eslint-config": "^2.2.0",
+    "@types/is-url": "^1.2.30",
+    "@types/lodash": "^4.14.191",
+    "@types/node": "^26.6.4",
+    "@types/react": "^19.3.0",
+    "@types/semver": "^7.3.13",
+    "prettier": "^3.3.3",
+    "typescript": "^5.5.4"
+  },
+  "scripts": {
+    "build": "ray build -e dist",
+    "dev": "ray develop",
+    "fix-lint": "ray lint --fix",
+    "lint": "ray lint",
+    "publish": "ray publish"
+  },
+  "platforms": [
+    "macOS"
+  ],
+  "overrides": {
+    "brace-expansion": "5.0.12",
+    "js-yaml@4": "4.3.2"
+  },
   "ai": {
-    "instructions": "Arc is a web browser. It contains spaces, which group tabs together. Most likely, the user assumes asking questions about the active space if they don't specify otherwise",
+    "instructions": "Arc is a web browser. A window contains spaces, and each space groups its own tabs (pinned, unpinned, or top app tabs).\nUnless the user names another space, assume they mean the active space. Tools act on the active space by default, so only look up spaces when the request names one.\nWhen the user refers to \"this tab\", \"the current tab\" or the page they are looking at, use get-focused-tab. It also returns the space of that tab.\nTab IDs come from get-tabs or get-focused-tab and space IDs come from get-spaces or get-active-space. Never invent an ID.\nOnly close the tabs the user explicitly asked to close. If select-tab or close-tab reports that a tab does not exist, tell the user instead of retrying with another tab.\n",
     "evals": [
       {
         "input": "@arc open a new window",
@@ -702,6 +849,11 @@
           }
         ],
         "mocks": {
+          "get-active-space": {
+            "id": 2,
+            "isActive": true,
+            "title": "Work"
+          },
           "new-window": "Successfully called \"new-window\"",
           "new-blank-window": "Successfully called \"new-blank-window\"",
           "get-spaces": [
@@ -731,6 +883,11 @@
           }
         ],
         "mocks": {
+          "get-active-space": {
+            "id": 2,
+            "isActive": true,
+            "title": "Work"
+          },
           "new-window": "Successfully called \"new-window\"",
           "get-spaces": [
             {
@@ -914,6 +1071,11 @@
       {
         "input": "@arc open a new tab",
         "mocks": {
+          "get-active-space": {
+            "id": 2,
+            "isActive": true,
+            "title": "Work"
+          },
           "new-tab": {
             "url": "",
             "space": ""
@@ -931,6 +1093,11 @@
       {
         "input": "@arc open a new tab in Work",
         "mocks": {
+          "get-active-space": {
+            "id": 2,
+            "isActive": true,
+            "title": "Work"
+          },
           "new-tab": {
             "url": "",
             "space": "Work"
@@ -962,6 +1129,11 @@
       {
         "input": "@arc open https://www.raycast.com/ in new tab",
         "mocks": {
+          "get-active-space": {
+            "id": 2,
+            "isActive": true,
+            "title": "Work"
+          },
           "new-tab": {
             "url": "https://www.raycast.com/",
             "space": ""
@@ -981,6 +1153,11 @@
       {
         "input": "@arc open https://www.raycast.com/,https://www.raycast.com/store in new tab",
         "mocks": {
+          "get-active-space": {
+            "id": 2,
+            "isActive": true,
+            "title": "Work"
+          },
           "new-tab": "Successfully opened"
         },
         "expected": [
@@ -1093,6 +1270,11 @@
       {
         "input": "@arc what spaces do I have open?",
         "mocks": {
+          "get-active-space": {
+            "id": 2,
+            "isActive": true,
+            "title": "Travel"
+          },
           "get-spaces": [
             {
               "title": "Personal",
@@ -1189,6 +1371,18 @@
       {
         "input": "@arc open pinned tab",
         "mocks": {
+          "get-spaces": [
+            {
+              "title": "Personal",
+              "id": 1,
+              "isActive": false
+            },
+            {
+              "title": "Work",
+              "id": 2,
+              "isActive": true
+            }
+          ],
           "get-active-space": {
             "id": 2,
             "isActive": true,
@@ -1325,41 +1519,250 @@
             }
           }
         ]
+      },
+      {
+        "input": "@arc what tab am I on?",
+        "mocks": {
+          "get-focused-tab": {
+            "id": "9E4A15A7-C228-497E-9DE3-9CB1F99023B6",
+            "title": "Hacker News",
+            "url": "https://news.ycombinator.com/",
+            "location": "unpinned",
+            "spaceId": "2",
+            "spaceName": "Work"
+          }
+        },
+        "expected": [
+          {
+            "callsTool": {
+              "name": "get-focused-tab",
+              "arguments": {}
+            }
+          },
+          {
+            "includes": "Hacker News"
+          }
+        ]
+      },
+      {
+        "input": "@arc which space is my current tab in?",
+        "mocks": {
+          "get-focused-tab": {
+            "id": "9E4A15A7-C228-497E-9DE3-9CB1F99023B6",
+            "title": "Hacker News",
+            "url": "https://news.ycombinator.com/",
+            "location": "unpinned",
+            "spaceId": "2",
+            "spaceName": "Work"
+          }
+        },
+        "expected": [
+          {
+            "callsTool": "get-focused-tab"
+          },
+          {
+            "includes": "Work"
+          }
+        ]
+      },
+      {
+        "input": "@arc close this tab",
+        "mocks": {
+          "get-focused-tab": {
+            "id": "9E4A15A7-C228-497E-9DE3-9CB1F99023B6",
+            "title": "Hacker News",
+            "url": "https://news.ycombinator.com/",
+            "location": "unpinned",
+            "spaceId": "2",
+            "spaceName": "Work"
+          },
+          "close-tab": "Successfully called \"close-tab\""
+        },
+        "expected": [
+          {
+            "callsTool": "get-focused-tab"
+          },
+          {
+            "callsTool": {
+              "name": "close-tab",
+              "arguments": {
+                "tabId": "9E4A15A7-C228-497E-9DE3-9CB1F99023B6"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "input": "@arc close the Hacker News tab",
+        "mocks": {
+          "get-active-space": {
+            "id": 2,
+            "isActive": true,
+            "title": "Work"
+          },
+          "get-spaces": [
+            {
+              "title": "Personal",
+              "id": 1,
+              "isActive": false
+            },
+            {
+              "title": "Work",
+              "id": 2,
+              "isActive": true
+            }
+          ],
+          "get-focused-tab": {
+            "id": "A144D0CC-D960-4642-85EE-E4D066EE2F51",
+            "title": "Raycast - Your shortcut to everything",
+            "url": "https://www.raycast.com/",
+            "location": "unpinned",
+            "spaceId": "2",
+            "spaceName": "Work"
+          },
+          "get-tabs": [
+            {
+              "id": "A144D0CC-D960-4642-85EE-E4D066EE2F51",
+              "location": "unpinned",
+              "title": "Raycast - Your shortcut to everything",
+              "url": "https://www.raycast.com/"
+            },
+            {
+              "id": "9E4A15A7-C228-497E-9DE3-9CB1F99023B6",
+              "location": "unpinned",
+              "title": "Hacker News",
+              "url": "https://news.ycombinator.com/"
+            }
+          ],
+          "close-tab": "Successfully called \"close-tab\""
+        },
+        "expected": [
+          {
+            "callsTool": "get-tabs"
+          },
+          {
+            "callsTool": {
+              "name": "close-tab",
+              "arguments": {
+                "tabId": "9E4A15A7-C228-497E-9DE3-9CB1F99023B6"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "input": "@arc switch to the Personal space",
+        "mocks": {
+          "get-active-space": {
+            "id": 2,
+            "isActive": true,
+            "title": "Work"
+          },
+          "get-spaces": [
+            {
+              "title": "Personal",
+              "id": 1,
+              "isActive": false
+            },
+            {
+              "title": "Work",
+              "id": 2,
+              "isActive": true
+            }
+          ],
+          "select-space": "Successfully called \"select-space\""
+        },
+        "expected": [
+          {
+            "callsTool": "get-spaces"
+          },
+          {
+            "callsTool": {
+              "name": "select-space",
+              "arguments": {
+                "spaceId": "1"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "input": "@arc which space am I in?",
+        "mocks": {
+          "get-active-space": {
+            "id": 2,
+            "isActive": true,
+            "title": "Work"
+          },
+          "get-spaces": [
+            {
+              "title": "Personal",
+              "id": 1,
+              "isActive": false
+            },
+            {
+              "title": "Work",
+              "id": 2,
+              "isActive": true
+            }
+          ]
+        },
+        "expected": [
+          {
+            "or": [
+              {
+                "callsTool": "get-active-space"
+              },
+              {
+                "callsTool": "get-spaces"
+              }
+            ]
+          },
+          {
+            "includes": "Work"
+          }
+        ]
+      },
+      {
+        "input": "@arc list the tabs in my current space",
+        "mocks": {
+          "get-active-space": {
+            "id": 2,
+            "isActive": true,
+            "title": "Work"
+          },
+          "get-spaces": [
+            {
+              "title": "Personal",
+              "id": 1,
+              "isActive": false
+            },
+            {
+              "title": "Work",
+              "id": 2,
+              "isActive": true
+            }
+          ],
+          "get-tabs": [
+            {
+              "id": "A144D0CC-D960-4642-85EE-E4D066EE2F51",
+              "location": "unpinned",
+              "title": "Raycast - Your shortcut to everything",
+              "url": "https://www.raycast.com/"
+            }
+          ]
+        },
+        "expected": [
+          {
+            "callsTool": {
+              "name": "get-tabs",
+              "arguments": {
+                "spaceId": "2"
+              }
+            }
+          }
+        ]
       }
     ]
-  },
-  "dependencies": {
-    "@raycast/api": "^1.90.0",
-    "@raycast/utils": "^1.18.1",
-    "cross-fetch": "^3.1.6",
-    "fuse.js": "^7.0.0",
-    "iconv-lite": "^0.6.3",
-    "is-url": "^1.2.4",
-    "lodash": "^4.17.23",
-    "nanoid": "^4.0.0",
-    "pinyin-pro": "^3.25.0",
-    "semver": "^7.3.8"
-  },
-  "devDependencies": {
-    "@raycast/eslint-config": "^1.0.11",
-    "@types/is-url": "^1.2.30",
-    "@types/lodash": "^4.14.191",
-    "@types/nanoid": "^3.0.0",
-    "@types/node": "^20.8.10",
-    "@types/react": "^18.3.4",
-    "@types/semver": "^7.3.13",
-    "eslint": "^8.57.0",
-    "prettier": "^3.3.3",
-    "typescript": "^5.5.4"
-  },
-  "scripts": {
-    "build": "ray build -e dist",
-    "dev": "ray develop",
-    "fix-lint": "ray lint --fix",
-    "lint": "ray lint",
-    "publish": "ray publish"
-  },
-  "platforms": [
-    "macOS"
-  ]
+  }
 }

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "arc",
+  "description": "Search and quickly navigate Arc's history and open tabs",
+  "author": {
+    "name": "thomas"
+  },
+  "license": "MIT",
+  "keywords": [
+    "browser",
+    "arc",
+    "history",
+    "search",
+    "tabs",
+    "open",
+    "windows",
+    "web"
+  ]
+}
