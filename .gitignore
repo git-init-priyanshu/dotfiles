@@ -12,6 +12,7 @@ raycast/.config/raycast/extensions/node_modules
 raycast/.config/raycast/extensions/**/node_modules
 raycast/.config/raycast/extensions/**/dist/
 raycast/.config/raycast/extensions/**/.parcel-cache/
+raycast/.config/raycast/node-compile-cache/
 
 # Raycast auth tokens
 raycast/.config/raycast/config.json
