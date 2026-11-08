@@ -66,4 +66,5 @@ opacity = 1
 bindings = [
   { key = "Back", mods = "Control", chars = "\u0017" },
   { key = "Return", mods = "Shift", chars = "\u001B\r" },
+  { key = "V", mods = "Command", chars = "\u001B[118;9u" },
 ]
