@@ -260,3 +260,6 @@ export MANPATH=""$HOME/.vapi"/share/man:$MANPATH"
 export PATH="$HOME/.local/bin:$PATH"
 eval "$(but completions zsh)"
 export PATH="$HOME/Library/TinyTeX/bin/universal-darwin:$PATH"
+
+# Added by jcode installer
+export PATH="/Users/priyanshubarwal/.local/bin:$PATH"
