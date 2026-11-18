@@ -1,6 +1,7 @@
 if [[ -f "/opt/homebrew/bin/brew" ]] then
   # If you're using macOS, you'll want this enabled
   eval "$(/opt/homebrew/bin/brew shellenv)"
+  export PATH="/opt/homebrew/opt/python@3.14/libexec/bin:$PATH"
 fi
 
 export ZSH="$HOME/.oh-my-zsh"
