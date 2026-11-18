@@ -10,7 +10,6 @@ Each top-level directory is a stow *package* whose internal tree mirrors `$HOME`
 nvim/      .config/nvim/
 alacritty/ .config/alacritty/
 karabiner/ .config/karabiner/
-raycast/   .config/raycast/
 tmux/      .tmux.conf
 zsh/       .zshrc
 ```
@@ -21,7 +20,7 @@ zsh/       .zshrc
 brew install stow git
 git clone <repo-url> ~/dotfiles
 cd ~/dotfiles
-stow -t ~ nvim alacritty karabiner tmux zsh raycast
+stow -t ~ nvim alacritty karabiner tmux zsh
 ```
 
 If stow refuses because a target already exists, back it up and re-run:

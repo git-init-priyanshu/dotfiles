@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../src/new-easel.ts"],
-  "sourcesContent": ["import { closeMainWindow, showToast, Toast } from \"@raycast/api\";\nimport { runAppleScript } from \"@raycast/utils\";\n\nfunction runAppleScriptAction() {\n  return runAppleScript(`\n      tell application \"Arc\"\n      if (count of windows) is 0 then\n        make new window\n      end if\n      activate\n    end tell\n    delay (0.5)\n    tell application \"Arc\"\n      activate\n    end tell\n\n    tell application \"System Events\"\n      tell process \"Arc\"\n        click menu item \"New Easel\" of menu \"File\" of menu bar 1\n      end tell\n    end tell\n  `);\n}\n\nexport default async function command() {\n  try {\n    await runAppleScriptAction();\n  } catch {\n    await closeMainWindow();\n    await showToast({\n      style: Toast.Style.Failure,\n      title: \"Failed opening a new Easel\",\n    });\n  }\n}\n"],
-  "mappings": "yaAAA,IAAAA,EAAA,GAAAC,EAAAD,EAAA,aAAAE,IAAA,eAAAC,EAAAH,GAAA,IAAAI,EAAkD,wBAClDC,EAA+B,0BAE/B,SAASC,GAAuB,CAC9B,SAAO,kBAAe;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA,GAiBrB,CACH,CAEA,eAAOJ,GAAiC,CACtC,GAAI,CACF,MAAMI,EAAqB,CAC7B,MAAQ,CACN,QAAM,mBAAgB,EACtB,QAAM,aAAU,CACd,MAAO,QAAM,MAAM,QACnB,MAAO,4BACT,CAAC,CACH,CACF",
-  "names": ["new_easel_exports", "__export", "command", "__toCommonJS", "import_api", "import_utils", "runAppleScriptAction"]
-}

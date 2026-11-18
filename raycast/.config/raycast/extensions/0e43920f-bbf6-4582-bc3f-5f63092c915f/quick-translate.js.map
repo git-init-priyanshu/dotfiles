@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../src/quick-translate.tsx"],
-  "sourcesContent": ["import { getPreferenceValues, getSelectedText, launchCommand, LaunchType } from \"@raycast/api\";\nimport { randomUUID } from \"node:crypto\";\n\nexport default async function QuickTranslate() {\n  let text = \"\";\n  if (getPreferenceValues<ExtensionPreferences>().autoInput) {\n    try {\n      text = await getSelectedText();\n    } catch {\n      // No selection is a valid launch: show an empty, editable translation view.\n    }\n  }\n\n  await launchCommand({\n    name: \"quick-translate-view\",\n    type: LaunchType.UserInitiated,\n    context: { text, requestId: randomUUID() },\n  });\n}\n"],
-  "mappings": "yaAAA,IAAAA,EAAA,GAAAC,EAAAD,EAAA,aAAAE,IAAA,eAAAC,EAAAH,GAAA,IAAAI,EAAgF,wBAChFC,EAA2B,uBAE3B,eAAOH,GAAwC,CAC7C,IAAII,EAAO,GACX,MAAI,uBAA0C,EAAE,UAC9C,GAAI,CACFA,EAAO,QAAM,mBAAgB,CAC/B,MAAQ,CAER,CAGF,QAAM,iBAAc,CAClB,KAAM,uBACN,KAAM,aAAW,cACjB,QAAS,CAAE,KAAAA,EAAM,aAAW,cAAW,CAAE,CAC3C,CAAC,CACH",
-  "names": ["quick_translate_exports", "__export", "QuickTranslate", "__toCommonJS", "import_api", "import_node_crypto", "text"]
-}
