@@ -258,7 +258,7 @@ export MANPATH=""$HOME/.vapi"/share/man:$MANPATH"
 
 # Added by GitButler installer
 export PATH="$HOME/.local/bin:$PATH"
-eval "$(but completions zsh)"
+command -v but >/dev/null 2>&1 && eval "$(but completions zsh)"
 export PATH="$HOME/Library/TinyTeX/bin/universal-darwin:$PATH"
 
 # Added by jcode installer
