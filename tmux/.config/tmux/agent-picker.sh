@@ -5,7 +5,8 @@
 pane=$(
   tmux list-panes -a -F '#{pane_id}	#{@agent_state}	#{session_name}:#{window_index}.#{pane_index}	#{pane_current_command}	#{pane_title}' |
     awk -F'\t' -v OFS='\t' '
-      $4 != "claude" && $4 != "codex" && $4 !~ /^jcode/ { next }
+      # Claude Code runs as a binary named after its version, e.g. 2.1.327
+      $4 !~ /^(claude|codex|jcode.*|[0-9]+\.[0-9]+\.[0-9]+)$/ { next }
       $2 == "running" { $2 = "\033[33m● running\033[0m" }
       $2 == "waiting" { $2 = "\033[31m◆ waiting\033[0m" }
       $2 == "done"    { $2 = "\033[32m✔ done   \033[0m" }
