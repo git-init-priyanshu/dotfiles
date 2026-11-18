@@ -262,4 +262,4 @@ eval "$(but completions zsh)"
 export PATH="$HOME/Library/TinyTeX/bin/universal-darwin:$PATH"
 
 # Added by jcode installer
-export PATH="/Users/priyanshubarwal/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
